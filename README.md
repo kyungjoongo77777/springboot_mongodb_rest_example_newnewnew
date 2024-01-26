@@ -1,6 +1,6 @@
-# CRUD_Login12345 프로젝트
+# CRUD_Login_board_lemonade
 
-## 백엔드
+## 백엔드 (springboot, mongodb , rest-api)
 
 프로젝트는 루트 폴더에 위치하며, Spring Boot, MongoDB, REST API로 구성되어 있습니다.
 
@@ -9,7 +9,7 @@
 1. 백엔드 실행은 `src/main/java/kyungjoon.lemon.crud_login12345/SpringbootMainApplication.java` 파일을 찾아 어플리케이션을 실행합니다.
 2. 백엔드는 8080 포트로 실행됩니다.
 
-## 클라이언트
+## 클라이언트 (nuxt, mobx , vuejs)
 
 클라이언트는 `/front_new` 폴더 내에 프로젝트가 위치하고 있습니다.
 
