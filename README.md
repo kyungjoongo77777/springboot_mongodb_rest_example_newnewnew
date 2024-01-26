@@ -28,7 +28,7 @@
 ```bash
 cd front_new
 npm install
-npm start
+npm dev
 ```
 
 ### Docker 이미지 및 컨테이너
