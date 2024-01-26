@@ -1,4 +1,4 @@
-# CRUD_Login12345 프로젝트 
+# CRUD_Login_board_lemonade
 
 ## 백엔드 (springboot, mongodb , rest-api)
 
