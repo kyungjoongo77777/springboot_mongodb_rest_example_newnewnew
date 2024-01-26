@@ -1,0 +1,1 @@
+ docker build --build-arg JAR_FILE=./build/libs/springboot-mongodb-0.0.1-SNAPSHOT.war -t springboot001 .

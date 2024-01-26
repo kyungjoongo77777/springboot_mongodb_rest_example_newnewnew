@@ -1,0 +1,23 @@
+
+
+###
+
+POST http://localhost:8080/user
+Content-Type: application/json
+
+{
+  "userId": "admin2",
+  "password": "ka1114",
+  "cellphoneNo": "010-9906-8228",
+  "email": "admin2@naver.com",
+  "createdDt": "2023-12-03",
+  "isAdmin": true
+}
+
+###
+
+GET http://localhost:4000/user/lance77
+Content-Type: application/json
+
+
+

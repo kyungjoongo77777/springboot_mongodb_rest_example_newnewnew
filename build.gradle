@@ -1,0 +1,49 @@
+plugins {
+    id 'java'
+    id 'war'
+    id 'org.springframework.boot' version '3.1.1'
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'klyungjoon.springboot-test'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'junit:junit:4.13.1'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'com.github.jknack:handlebars-helpers:4.2.0'
+    implementation 'com.github.jknack:handlebars-jackson2:4.2.0'
+    implementation 'com.github.jknack:handlebars-humanize:4.2.0'
+    implementation("org.springframework.boot:spring-boot-devtools")
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    implementation "io.jsonwebtoken:jjwt:0.9.1"
+    implementation group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.2'
+    // com.sun.xml.bind
+    implementation 'com.sun.xml.bind:jaxb-impl:4.0.1'
+    implementation 'com.sun.xml.bind:jaxb-core:4.0.1'
+    // javax.xml.bind
+    implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
+    testCompileOnly 'junit:junit:4.12'
+    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.1.0'
+    implementation 'org.projectlombok:lombok'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
