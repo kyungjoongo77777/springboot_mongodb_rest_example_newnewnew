@@ -31,6 +31,19 @@ npm install
 npm start
 ```
 
+### Docker 이미지 및 컨테이너
+```bash
+클라이언트, 백엔드 
+Docker 이미지로 빌드 및 실행할 수 있습니다. 
+각각의 프로젝트 루트 디렉토리에 Dockerfile을 참조하여 이미지 빌드후에 컨테이너 실행
+
+### Docker 이미지 빌드 (프론트엔드 예시 ,백엔드도 동일)
+docker build -t crud_login_frontend ./front_new
+
+### Docker 컨테이너 실행 (프론트엔드 예시,백엔드도 동일)
+docker run -p 3000:3000 crud_login_frontend
+```
+
 ### 실행 가능한 데모 url : https://frontnew-sz2h574dlq-du.a.run.app/
  
  
