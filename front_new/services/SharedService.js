@@ -4,6 +4,7 @@ import {toJS} from "mobx";
 import {useRouter} from "vue-router";
 import _ from "lodash";
 import {ENDPOINT_PREFIX} from "../constants/FrontConstansts.js";
+import {notification} from "ant-design-vue";
 
 export const useSharedService = createGlobalObservable(() => {
     return useLocalObservable(() => ({
@@ -25,12 +26,11 @@ export const useSharedService = createGlobalObservable(() => {
             isAdmin: false
         },
         isAdmin: false,
-        userList:[],
+        userList: [],
         isWriteMode: true,
         async handleLogin(userId, userPwd, router) {
             localStorage.setItem("userId", userId);
             localStorage.setItem("userPwd", userPwd);
-
             let _userId = localStorage.getItem("userId");
             let _userPwd = localStorage.getItem("userPwd");
             console.log("_userId===>", _userId);
@@ -40,7 +40,6 @@ export const useSharedService = createGlobalObservable(() => {
                 userId: _userId,
                 password: _userPwd
             })
-            console.log("resultresultresultresult===>", result.data)
             if (_.isEmpty(result.data)) {
                 alert('유저 정보 no!!(id,pwd가 일치 하지 않습니다)')
             } else {
@@ -59,10 +58,32 @@ export const useSharedService = createGlobalObservable(() => {
             this.loading = false;
 
         },
-        /**
-         *
-         * @returns {Promise<void>}
-         */
+        async handleDeleteOne(item) {
+            if (item.author === localStorage.getItem('userId') || localStorage.getItem('isAdmin').toString() === 'true') {
+                let result = await axios.delete(`${ENDPOINT_PREFIX}/board/${item.id}`,)
+                await this.value.getBoardList()
+                this.value.currentBoardId = item.id;
+            } else {
+                notification.open({
+                    message: `자기글만 삭제 가능 또는 관리자인 경우!`,
+                    duration: 1.5,
+                });
+            }
+        },
+        handleModify(item) {
+            if (item.author === localStorage.getItem('userId') || localStorage.getItem('isAdmin').toString() === 'true') {
+                this.value.isWriteMode = false;
+                this.value.currentTitle = item.title;
+                this.value.currentBoardId = item.id;
+                this.value.currentContents = item.contents;
+                this.value.modalVisible = true;
+            } else {
+                notification.open({
+                    message: `자기글만 수정 가능 합니다 또는 관리자만 수정 가능!`,
+                    duration: 1.5,
+                });
+            }
+        },
         async getUserList() {
             this.loading = true;
             let results = await axios.get(`${ENDPOINT_PREFIX}/user`,)
@@ -96,7 +117,6 @@ export const useSharedService = createGlobalObservable(() => {
         },
         async getBoardOne(id) {
             let results = await axios.get(`${ENDPOINT_PREFIX}/board/${id}`)
-
             console.log("results====>", results);
 
         },

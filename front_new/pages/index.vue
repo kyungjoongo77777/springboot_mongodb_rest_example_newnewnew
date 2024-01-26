@@ -72,7 +72,6 @@ const userId = ref("lance77");
 const userPwd = ref("ka1114");
 
 onMounted(() => {
-
   if (localStorage.getItem("userId")) {
     router.push('/board')
   }

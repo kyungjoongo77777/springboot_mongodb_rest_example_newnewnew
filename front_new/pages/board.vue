@@ -47,13 +47,13 @@
           <td style="padding: 10px;flex:.25">{{ item.createdDt }}</td>
           <td style="padding: 10px;flex:.25; ">
             &nbsp;&nbsp;
-            <button v-on:click="handleDeleteOne(item)">
+            <button v-on:click="sharedService.handleDeleteOne(item)">
               삭제
             </button>
           </td>
           <td style="padding: 10px;flex:.25">
             &nbsp;&nbsp;
-            <button v-on:click="handleModify(item)">
+            <button v-on:click="sharedService.handleModify(item)">
               수정
             </button>
           </td>
@@ -107,43 +107,6 @@ const showWriteModal = () => {
   sharedService.value.currentTitle = ''
   sharedService.value.currentContents = ''
   sharedService.value.modalVisible = true;
-}
-
-const handleDeleteOne = async (item) => {
-  if (item.author === localStorage.getItem('userId') || localStorage.getItem('isAdmin').toString() === 'true') {
-    let result = await axios.delete(`${ENDPOINT_PREFIX}/board/${item.id}`,)
-    await sharedService.value.getBoardList()
-    sharedService.value.currentBoardId = item.id;
-  } else {
-
-    notification.open({
-      message: `자기글만 삭제 가능 또는 관리자인 경우!`,
-      duration : 1.5,
-    });
-  }
-
-
-}
-
-/**
- *
- * @param id
- * @returns {Promise<void>}
- */
-const handleModify = async (item) => {
-  if (item.author === localStorage.getItem('userId') || localStorage.getItem('isAdmin').toString() === 'true') {
-    sharedService.value.isWriteMode = false;
-    sharedService.value.currentTitle = item.title;
-    sharedService.value.currentBoardId = item.id;
-    sharedService.value.currentContents = item.contents;
-    sharedService.value.modalVisible = true;
-  } else {
-    notification.open({
-      message: `자기글만 수정 가능 합니다 또는 관리자만 수정 가능!`,
-      duration : 1.5,
-    });
-  }
-
 }
 
 
