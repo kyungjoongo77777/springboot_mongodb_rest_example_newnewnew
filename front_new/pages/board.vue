@@ -75,10 +75,8 @@ definePageMeta({
 
 import {useRouter} from "vue-router";
 import {onMounted, ref} from "vue";
-import axios from "axios";
 import {useSharedService} from "~/services/SharedService.js";
 import FormModal from "~/components/FormModal.vue";
-import {ENDPOINT_PREFIX} from "~/constants/FrontConstansts.js";
 import {notification} from 'ant-design-vue';
 
 const [api, contextHolder] = notification.useNotification();

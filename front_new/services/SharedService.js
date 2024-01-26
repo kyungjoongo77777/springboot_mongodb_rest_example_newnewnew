@@ -41,7 +41,7 @@ export const useSharedService = createGlobalObservable(() => {
                 password: _userPwd
             })
             if (_.isEmpty(result.data)) {
-                alert('유저 정보 no!!(id,pwd가 일치 하지 않습니다)')
+                alert('id/pwd 가 일치하지 않습니다. 하단의  User List를 보고 잘 넣으세요')
             } else {
                 //alert('해당 아이디가 존재하므로 다음 페이지로 진행')
                 const {$locally} = useNuxtApp()
@@ -61,9 +61,10 @@ export const useSharedService = createGlobalObservable(() => {
         async handleDeleteOne(item) {
             if (item.author === localStorage.getItem('userId') || localStorage.getItem('isAdmin').toString() === 'true') {
                 let result = await axios.delete(`${ENDPOINT_PREFIX}/board/${item.id}`,)
-                await this.value.getBoardList()
+                await this.getBoardList()
                 this.value.currentBoardId = item.id;
             } else {
+                //  alert('자기글만 삭제 가능 또는 관리자인 경우!')
                 notification.open({
                     message: `자기글만 삭제 가능 또는 관리자인 경우!`,
                     duration: 1.5,
@@ -72,11 +73,11 @@ export const useSharedService = createGlobalObservable(() => {
         },
         handleModify(item) {
             if (item.author === localStorage.getItem('userId') || localStorage.getItem('isAdmin').toString() === 'true') {
-                this.value.isWriteMode = false;
-                this.value.currentTitle = item.title;
-                this.value.currentBoardId = item.id;
-                this.value.currentContents = item.contents;
-                this.value.modalVisible = true;
+                this.isWriteMode = false;
+                this.currentTitle = item.title;
+                this.currentBoardId = item.id;
+                this.currentContents = item.contents;
+                this.modalVisible = true;
             } else {
                 notification.open({
                     message: `자기글만 수정 가능 합니다 또는 관리자만 수정 가능!`,

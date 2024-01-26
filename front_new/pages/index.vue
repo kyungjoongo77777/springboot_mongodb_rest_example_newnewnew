@@ -68,7 +68,7 @@ import {useSharedService} from "~/services/SharedService.js";
 const sharedService = useSharedService()
 
 const router = useRouter();
-const userId = ref("lance77");
+const userId = ref("test1");
 const userPwd = ref("ka1114");
 
 onMounted(() => {
