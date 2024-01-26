@@ -19,7 +19,7 @@
 - `/front_new/page`: 화면을 담당합니다.
 - `/front_new/middleware`: 인증 처리를 담당하는 미들웨어입니다. 인증이 안되어 있으면 `board` 페이지에 접근할 수 없습니다.
 - `/front_new/components`: 모듈화된 컴포넌트를 분리하여 구성되어 있습니다.
--  `/front_new/constants`: 상수 ( 백엔드의 엔드포인드 기술, 차후에 .env로 변경 처리 필요 )
+-  `/front_new/constants`: 상수 ( 백엔드의 엔드포인드 기술, 차후에 .env로 변경 처리 필요 ) 로컬PC 백엔드로 API 통신을 원한다면 FrontConstants.js의 ENDPOINT_PREFIX=localhost:8080으로 변경후 실행.
 
 ### 실행 방법
 
