@@ -33,8 +33,6 @@ export const useSharedService = createGlobalObservable(() => {
             localStorage.setItem("userPwd", userPwd);
             let _userId = localStorage.getItem("userId");
             let _userPwd = localStorage.getItem("userPwd");
-            console.log("_userId===>", _userId);
-            console.log("_userPwd===>", _userPwd);
             this.user = _userId;
             let result = await axios.post(`${ENDPOINT_PREFIX}/user/login`, {
                 userId: _userId,
@@ -54,7 +52,6 @@ export const useSharedService = createGlobalObservable(() => {
             this.loading = true;
             let results = await axios.get(`${ENDPOINT_PREFIX}/board`,)
             this.boardList = results.data;
-            console.log("boardList===boardList>", toJS(this.boardList));
             this.loading = false;
 
         },
@@ -88,7 +85,6 @@ export const useSharedService = createGlobalObservable(() => {
         async getUserList() {
             this.loading = true;
             let results = await axios.get(`${ENDPOINT_PREFIX}/user`,)
-            console.log("userList===>", results.data)
             this.userList = results.data;
             this.loading = false;
 
@@ -118,7 +114,6 @@ export const useSharedService = createGlobalObservable(() => {
         },
         async getBoardOne(id) {
             let results = await axios.get(`${ENDPOINT_PREFIX}/board/${id}`)
-            console.log("results====>", results);
 
         },
         async SignUp(userInfo) {
