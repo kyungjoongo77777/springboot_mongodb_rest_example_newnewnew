@@ -1,5 +1,6 @@
 package kyungjoon.lemon.crud_login12345.user;
 
+import kyungjoon.lemon.crud_login12345.jwt.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,9 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private JwtService jwtService;
+
     @PostMapping("/user")
     public User createUser(@RequestBody User userOne) {
         userOne.setCreatedDt(new Date().toString());
@@ -27,10 +31,13 @@ public class UserController {
         String userId = userOne.getUserId();
         String paramPassword = userOne.getPassword();
         User _userOne = userRepository.findUsersByUserId(userId);
-        //todo: userid, password가 일치하는 경우에만 유저 정보를 리턴
+
         if (_userOne == null) {
             return null;
-        } else if (Objects.equals(_userOne.getPassword(), paramPassword)) {
+
+        } else if (Objects.equals(_userOne.getPassword(), paramPassword)) {//todo: userid, password가 일치하는 경우에만 유저 정보를 리턴
+            String accessToken= jwtService.getJwt();
+            System.out.println(accessToken);
             return _userOne;
         } else {
             return null;

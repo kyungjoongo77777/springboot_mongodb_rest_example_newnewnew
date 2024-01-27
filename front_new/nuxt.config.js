@@ -2,6 +2,7 @@
 import {useSharedService} from "./services/SharedService.js";
 
 export default defineNuxtConfig({
+    dev: process.env.NODE_ENV !== 'production',
     devtools: {enabled: false},
     modules: [
         '@ant-design-vue/nuxt',

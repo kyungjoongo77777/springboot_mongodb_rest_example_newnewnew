@@ -1,10 +1,14 @@
 import {createGlobalObservable, useLocalObservable} from "mobx-vue-lite";
 import axios from "axios";
-import {toJS} from "mobx";
+//import {toJS} from "mobx";
 import {useRouter} from "vue-router";
 import _ from "lodash";
-import {ENDPOINT_PREFIX} from "../constants/FrontConstansts.js";
+import {ENDPOINT_PREFIX_DEV, ENDPOINT_PREFIX_PROD} from "../constants/FrontConstansts.js";
 import {notification} from "ant-design-vue";
+
+const __END_POINT_PREFIX__ = process.env.NODE_ENV === 'development' ? ENDPOINT_PREFIX_DEV : ENDPOINT_PREFIX_PROD
+
+console.log("__END_POINT_PREFIX__====>",__END_POINT_PREFIX__);
 
 export const useSharedService = createGlobalObservable(() => {
     return useLocalObservable(() => ({
@@ -34,7 +38,7 @@ export const useSharedService = createGlobalObservable(() => {
             let _userId = localStorage.getItem("userId");
             let _userPwd = localStorage.getItem("userPwd");
             this.user = _userId;
-            let result = await axios.post(`${ENDPOINT_PREFIX}/user/login`, {
+            let result = await axios.post(`${__END_POINT_PREFIX__}/user/login`, {
                 userId: _userId,
                 password: _userPwd
             })
@@ -50,14 +54,14 @@ export const useSharedService = createGlobalObservable(() => {
         },
         async getBoardList() {
             this.loading = true;
-            let results = await axios.get(`${ENDPOINT_PREFIX}/board`,)
+            let results = await axios.get(`${__END_POINT_PREFIX__}/board`,)
             this.boardList = results.data;
             this.loading = false;
 
         },
         async handleDeleteOne(item) {
             if (item.author === localStorage.getItem('userId') || localStorage.getItem('isAdmin').toString() === 'true') {
-                let result = await axios.delete(`${ENDPOINT_PREFIX}/board/${item.id}`,)
+                let result = await axios.delete(`${__END_POINT_PREFIX__}/board/${item.id}`,)
                 await this.getBoardList()
                 this.value.currentBoardId = item.id;
             } else {
@@ -84,7 +88,7 @@ export const useSharedService = createGlobalObservable(() => {
         },
         async getUserList() {
             this.loading = true;
-            let results = await axios.get(`${ENDPOINT_PREFIX}/user`,)
+            let results = await axios.get(`${__END_POINT_PREFIX__}/user`,)
             this.userList = results.data;
             this.loading = false;
 
@@ -97,7 +101,7 @@ export const useSharedService = createGlobalObservable(() => {
                 createdDt: new Date().toLocaleString(),
                 //isAdmin: false
             }
-            let results = await axios.post(`${ENDPOINT_PREFIX}/board`, _body)
+            let results = await axios.post(`${__END_POINT_PREFIX__}/board`, _body)
             await this.getBoardList();
         },
         async putBoardOne() {
@@ -107,20 +111,20 @@ export const useSharedService = createGlobalObservable(() => {
                 author: localStorage.getItem('userId'),
                 createdDt: new Date().toLocaleString(),
             }
-            let results = await axios.put(`${ENDPOINT_PREFIX}/board/${this.currentBoardId}`, _body)
+            let results = await axios.put(`${__END_POINT_PREFIX__}/board/${this.currentBoardId}`, _body)
             this.modalVisible = false;
             await this.getBoardList();
 
         },
         async getBoardOne(id) {
-            let results = await axios.get(`${ENDPOINT_PREFIX}/board/${id}`)
+            let results = await axios.get(`${__END_POINT_PREFIX__}/board/${id}`)
 
         },
         async SignUp(userInfo) {
             const sharedService = useSharedService()
             const router = useRouter()
             this.loading = true;
-            let results = await axios.post(`${ENDPOINT_PREFIX}/users`, userInfo);
+            let results = await axios.post(`${__END_POINT_PREFIX__}/users`, userInfo);
             if (results.data.statusCode === 200) {
                 // sharedService.value.showToast('가입 완료, 잠시후 로그인 페이지로 이동.!')
                 return true;
